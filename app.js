@@ -10,16 +10,23 @@ const connection = mysql.createConnection({
     database: 'blog'
 });
 
+connection.connect((err) => {
+    if (err) {
+      console.log('error connecting: ' + err.stack);
+      return;
+    }
+    console.log('DB access succeed!');
+  });
+
 app.get('/', (req, res) => {
     console.log("app.get() in");
     connection.query(
-        'SELECT * FROM articles',
+        'SELECT * FROM users',
         (error, results) =>{
             if(error){
                 console.log(`error: ${error}`);
             }
-            console.log("database access succeed.");
-            console.dir(results);
+            console.dir(results, {depth: null});
         }
     );
 
